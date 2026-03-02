@@ -34,6 +34,7 @@ public struct FeaturamaView: View {
     }
 
     @Environment(\.colorScheme) private var systemColorScheme
+    @Environment(\.dismiss) private var dismiss
     @State private var activeFilter = "new"
     @State private var isAdding = false
     @State private var items: [FeatureRequest]? = nil
@@ -98,7 +99,7 @@ public struct FeaturamaView: View {
                     HeaderView(
                         theme: theme,
                         strings: strings,
-                        onClose: onClose,
+                        onClose: onClose ?? { dismiss() },
                         onAdd: { isAdding = true }
                     )
 
