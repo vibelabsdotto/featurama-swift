@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/master.swiftdeps"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/runner.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/runner.dia"
+  }
+}

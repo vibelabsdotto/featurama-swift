@@ -1,0 +1,229 @@
+{
+  "": {
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/master.swiftdeps"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Configuration.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Configuration.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Configuration.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Configuration~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Configuration.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Configuration.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/DTOs/CreateCommentRequest.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateCommentRequest.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateCommentRequest.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateCommentRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateCommentRequest.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateCommentRequest.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/DTOs/CreateFeatureRequest.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateFeatureRequest.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateFeatureRequest.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateFeatureRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateFeatureRequest.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateFeatureRequest.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/DTOs/ProjectConfig.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ProjectConfig.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ProjectConfig.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ProjectConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ProjectConfig.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ProjectConfig.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/DTOs/UpdateFeatureRequest.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/UpdateFeatureRequest.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/UpdateFeatureRequest.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/UpdateFeatureRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/UpdateFeatureRequest.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/UpdateFeatureRequest.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/DTOs/VoteRequest.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoteRequest.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoteRequest.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoteRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoteRequest.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoteRequest.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Errors/FeaturamaSdkError.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkError.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkError.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkError~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkError.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkError.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/FeaturamaSdk.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdk.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdk.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdk~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdk.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdk.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/FeaturamaSdkClient.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkClient.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkClient.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkClient.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaSdkClient.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/Comment.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Comment.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Comment.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Comment~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Comment.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/Comment.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/DeviceInfoData.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoData.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoData.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoData~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoData.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoData.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/FeatureRequest.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequest.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequest.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequest~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequest.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequest.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/FeatureRequestSource.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestSource.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestSource.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestSource~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestSource.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestSource.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/FeatureRequestStatus.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestStatus.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestStatus.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestStatus~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestStatus.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeatureRequestStatus.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/Models/PaginatedResponse.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/PaginatedResponse.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/PaginatedResponse.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/PaginatedResponse~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/PaginatedResponse.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/PaginatedResponse.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/AddCommentFormView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/AddCommentFormView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/AddCommentFormView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/AddCommentFormView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/AddCommentFormView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/AddCommentFormView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/BrandingView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/BrandingView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/BrandingView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/BrandingView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/BrandingView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/BrandingView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/CommentItemView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CommentItemView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CommentItemView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CommentItemView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CommentItemView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CommentItemView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/CreateRequestFormView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateRequestFormView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateRequestFormView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateRequestFormView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateRequestFormView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/CreateRequestFormView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/FilterTabsView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FilterTabsView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FilterTabsView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FilterTabsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FilterTabsView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FilterTabsView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/HeaderView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/HeaderView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/HeaderView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/HeaderView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/HeaderView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/HeaderView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/RequestCardView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestCardView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestCardView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestCardView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestCardView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestCardView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/RequestDetailView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestDetailView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestDetailView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestDetailView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestDetailView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestDetailView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Components/RequestListView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestListView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestListView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestListView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestListView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RequestListView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/FeaturamaView.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaView.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaView.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaView~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaView.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaView.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Icons/FeaturamaIcons.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaIcons.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaIcons.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaIcons~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaIcons.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaIcons.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Strings/FeaturamaStrings.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaStrings.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaStrings.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaStrings~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaStrings.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaStrings.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Theme/FeaturamaTheme.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaTheme.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaTheme.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaTheme~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaTheme.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/FeaturamaTheme.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Theme/ThemeFactory.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ThemeFactory.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ThemeFactory.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ThemeFactory~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ThemeFactory.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/ThemeFactory.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Utils/DeviceInfoProvider.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoProvider.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoProvider.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoProvider.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/DeviceInfoProvider.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Utils/RelativeTimeFormatter.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RelativeTimeFormatter.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RelativeTimeFormatter.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RelativeTimeFormatter~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RelativeTimeFormatter.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/RelativeTimeFormatter.dia"
+  },
+  "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/Sources/FeaturamaSdk/UI/Utils/VoterIdProvider.swift": {
+    "dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoterIdProvider.d",
+    "object": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoterIdProvider.swift.o",
+    "swiftmodule": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoterIdProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoterIdProvider.swiftdeps",
+    "diagnostics": "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/VoterIdProvider.dia"
+  }
+}

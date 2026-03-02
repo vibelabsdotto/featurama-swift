@@ -1,0 +1,3 @@
+module FeaturamaSdkPackageTests {
+    header "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdkPackageTests.build/include/FeaturamaSdkPackageTests-Swift.h"
+}
