@@ -1,3 +1,0 @@
-module FeaturamaSdk {
-    header "/Users/maxmannstein/Coding/Featurama/sdks/swift/FeaturamaSdk/.build/arm64-apple-macosx/debug/FeaturamaSdk.build/include/FeaturamaSdk-Swift.h"
-}
