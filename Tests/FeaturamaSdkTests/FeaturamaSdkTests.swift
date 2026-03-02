@@ -105,33 +105,63 @@ final class FeaturamaSdkTests: XCTestCase {
     func testFeatureRequestDecoding() throws {
         let json = """
         {
-            "id": "550e8400-e29b-41d4-a716-446655440000",
-            "project_id": "660e8400-e29b-41d4-a716-446655440001",
+            "id": "abc123",
+            "projectId": "proj456",
             "title": "Test Feature",
             "description": "A test feature request",
-            "status": 0,
-            "source": 0,
-            "vote_count": 5,
-            "submitter_identifier": "user123",
-            "created_at": "2024-01-15T10:30:00Z"
+            "status": "Requested",
+            "source": "SDK",
+            "voteCount": 5,
+            "submitterIdentifier": "user123",
+            "commentCount": 3,
+            "createdAt": "2024-01-15T10:30:00Z",
+            "isApproved": true
         }
         """
 
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .iso8601
 
         let data = json.data(using: .utf8)!
         let request = try decoder.decode(FeatureRequest.self, from: data)
 
-        XCTAssertEqual(request.id, UUID(uuidString: "550e8400-e29b-41d4-a716-446655440000"))
-        XCTAssertEqual(request.projectId, UUID(uuidString: "660e8400-e29b-41d4-a716-446655440001"))
+        XCTAssertEqual(request.id, "abc123")
+        XCTAssertEqual(request.projectId, "proj456")
         XCTAssertEqual(request.title, "Test Feature")
         XCTAssertEqual(request.description, "A test feature request")
         XCTAssertEqual(request.status, .requested)
         XCTAssertEqual(request.source, .sdk)
         XCTAssertEqual(request.voteCount, 5)
         XCTAssertEqual(request.submitterIdentifier, "user123")
+        XCTAssertEqual(request.commentCount, 3)
+        XCTAssertTrue(request.isApproved)
+    }
+
+    func testFeatureRequestDecodingDefaults() throws {
+        let json = """
+        {
+            "id": "abc123",
+            "projectId": "proj456",
+            "title": "Test",
+            "description": "Desc",
+            "status": "Requested",
+            "source": "SDK",
+            "voteCount": 0,
+            "submitterIdentifier": "user1",
+            "createdAt": "2024-01-15T10:30:00Z"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+        let data = json.data(using: .utf8)!
+        let request = try decoder.decode(FeatureRequest.self, from: data)
+
+        XCTAssertEqual(request.commentCount, 0)
+        XCTAssertTrue(request.isApproved)
+        XCTAssertNil(request.submitterEmail)
+        XCTAssertNil(request.deviceInfo)
     }
 
     func testPaginatedResponseDecoding() throws {
@@ -139,25 +169,24 @@ final class FeaturamaSdkTests: XCTestCase {
         {
             "items": [
                 {
-                    "id": "550e8400-e29b-41d4-a716-446655440000",
-                    "project_id": "660e8400-e29b-41d4-a716-446655440001",
+                    "id": "abc123",
+                    "projectId": "proj456",
                     "title": "Test Feature",
                     "description": "A test feature request",
-                    "status": 0,
-                    "source": 0,
-                    "vote_count": 5,
-                    "submitter_identifier": "user123",
-                    "created_at": "2024-01-15T10:30:00Z"
+                    "status": "Requested",
+                    "source": "SDK",
+                    "voteCount": 5,
+                    "submitterIdentifier": "user123",
+                    "createdAt": "2024-01-15T10:30:00Z"
                 }
             ],
-            "total_count": 1,
+            "totalCount": 1,
             "page": 1,
-            "page_size": 20
+            "pageSize": 20
         }
         """
 
         let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
         decoder.dateDecodingStrategy = .iso8601
 
         let data = json.data(using: .utf8)!
@@ -189,7 +218,6 @@ final class FeaturamaSdkTests: XCTestCase {
 
     func testCreateFeatureRequestEncoding() throws {
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
 
         let createRequest = CreateFeatureRequest(
             title: "New Feature",
@@ -202,12 +230,27 @@ final class FeaturamaSdkTests: XCTestCase {
 
         XCTAssertEqual(json["title"] as? String, "New Feature")
         XCTAssertEqual(json["description"] as? String, "Feature description")
-        XCTAssertEqual(json["submitter_identifier"] as? String, "user456")
+        XCTAssertEqual(json["submitterIdentifier"] as? String, "user456")
+    }
+
+    func testCreateFeatureRequestWithEmail() throws {
+        let encoder = JSONEncoder()
+
+        let createRequest = CreateFeatureRequest(
+            title: "New Feature",
+            description: "Description",
+            submitterIdentifier: "user456",
+            email: "test@example.com"
+        )
+
+        let data = try encoder.encode(createRequest)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+
+        XCTAssertEqual(json["email"] as? String, "test@example.com")
     }
 
     func testUpdateFeatureRequestEncoding() throws {
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
 
         let updateRequest = UpdateFeatureRequest(
             title: "Updated Feature",
@@ -220,19 +263,86 @@ final class FeaturamaSdkTests: XCTestCase {
 
         XCTAssertEqual(json["title"] as? String, "Updated Feature")
         XCTAssertEqual(json["description"] as? String, "Updated description")
-        XCTAssertEqual(json["submitter_identifier"] as? String, "user123")
+        XCTAssertEqual(json["submitterIdentifier"] as? String, "user123")
     }
 
     func testVoteRequestEncoding() throws {
         let encoder = JSONEncoder()
-        encoder.keyEncodingStrategy = .convertToSnakeCase
 
         let voteRequest = VoteRequest(voterIdentifier: "voter789")
 
         let data = try encoder.encode(voteRequest)
         let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
 
-        XCTAssertEqual(json["voter_identifier"] as? String, "voter789")
+        XCTAssertEqual(json["voterIdentifier"] as? String, "voter789")
+    }
+
+    func testCreateCommentRequestEncoding() throws {
+        let encoder = JSONEncoder()
+
+        let commentRequest = CreateCommentRequest(
+            content: "Great idea!",
+            authorIdentifier: "user123",
+            authorName: "Max"
+        )
+
+        let data = try encoder.encode(commentRequest)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+
+        XCTAssertEqual(json["content"] as? String, "Great idea!")
+        XCTAssertEqual(json["authorIdentifier"] as? String, "user123")
+        XCTAssertEqual(json["authorName"] as? String, "Max")
+    }
+
+    // MARK: - Comment Decoding Tests
+
+    func testCommentDecoding() throws {
+        let json = """
+        {
+            "id": "comment1",
+            "featureRequestId": "req1",
+            "content": "Great idea!",
+            "authorIdentifier": "user1",
+            "authorName": "Max",
+            "authorRole": "user",
+            "voteCount": 3,
+            "createdAt": "2024-06-01T12:00:00Z"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+        let data = json.data(using: .utf8)!
+        let comment = try decoder.decode(Comment.self, from: data)
+
+        XCTAssertEqual(comment.id, "comment1")
+        XCTAssertEqual(comment.content, "Great idea!")
+        XCTAssertEqual(comment.authorRole, .user)
+        XCTAssertEqual(comment.voteCount, 3)
+    }
+
+    func testCommentDeveloperRole() throws {
+        let json = """
+        {
+            "id": "comment2",
+            "featureRequestId": "req1",
+            "content": "We're on it!",
+            "authorIdentifier": "dev1",
+            "authorRole": "developer",
+            "voteCount": 0,
+            "createdAt": "2024-06-01T12:00:00Z"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+        let data = json.data(using: .utf8)!
+        let comment = try decoder.decode(Comment.self, from: data)
+
+        XCTAssertEqual(comment.authorRole, .developer)
+        XCTAssertNil(comment.authorName)
     }
 
     // MARK: - Error Tests
@@ -267,5 +377,17 @@ final class FeaturamaSdkTests: XCTestCase {
     func testFeatureRequestSourceDescriptions() {
         XCTAssertEqual(FeatureRequestSource.sdk.description, "SDK")
         XCTAssertEqual(FeatureRequestSource.dashboard.description, "Dashboard")
+    }
+
+    // MARK: - Status Raw Values
+
+    func testFeatureRequestStatusRawValues() {
+        XCTAssertEqual(FeatureRequestStatus.requested.rawValue, "Requested")
+        XCTAssertEqual(FeatureRequestStatus.inProgress.rawValue, "InProgress")
+    }
+
+    func testFeatureRequestSourceRawValues() {
+        XCTAssertEqual(FeatureRequestSource.sdk.rawValue, "SDK")
+        XCTAssertEqual(FeatureRequestSource.dashboard.rawValue, "Dashboard")
     }
 }

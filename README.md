@@ -1,244 +1,177 @@
 # Featurama Swift SDK
 
-A native Swift SDK for the Featurama feature request management platform.
+Native Swift SDK for [Featurama](https://featurama.io) — in-app feature request management for iOS apps.
 
-> Status: Coming soon for MVP. React Native / Expo is currently the production-ready SDK.
+Includes a full API client and a drop-in SwiftUI view with voting, comments, filtering, and theming.
 
 ## Requirements
 
-- iOS 13.0+ / macOS 10.15+ / tvOS 13.0+ / watchOS 6.0+
+- iOS 16+ / macOS 13+ / tvOS 16+ / watchOS 9+
 - Swift 5.9+
-- Xcode 15.0+
+- Xcode 15+
 
 ## Installation
 
 ### Swift Package Manager
 
-Add the following to your `Package.swift` file:
+Add to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/your-org/featurama-swift-sdk.git", from: "1.0.0")
+    .package(url: "https://github.com/featurama-app/featurama-swift.git", from: "0.1.0")
 ]
 ```
 
-Or add it directly in Xcode:
-1. File → Add Package Dependencies
-2. Enter the repository URL
-3. Select your version rules
+Or in Xcode: **File → Add Package Dependencies** → paste the repository URL.
 
 ## Quick Start
 
-### Configure the SDK
-
-Configure the SDK once at app startup (e.g., in `AppDelegate` or `@main App`):
+### 1. Configure
 
 ```swift
 import FeaturamaSdk
 
-// In your app initialization
-do {
-    try FeaturamaSdk.configure(apiKey: "fm_live_your_api_key_here")
-} catch {
-    print("Failed to configure Featurama SDK: \(error)")
+@main
+struct MyApp: App {
+    init() {
+        try? FeaturamaSdk.configure(apiKey: "fm_live_your_api_key_here")
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            FeaturamaView(accentColor: .indigo)
+        }
+    }
 }
 ```
 
-### Basic Usage
+That's it — `FeaturamaView` handles the full feature request UI out of the box.
+
+### 2. Customize (optional)
 
 ```swift
-import FeaturamaSdk
-
-// Fetch feature requests
-let response = try await FeaturamaSdk.getRequests(page: 1, pageSize: 20)
-for request in response.items {
-    print("\(request.title) - \(request.voteCount) votes")
-}
-
-// Create a new feature request
-let newRequest = CreateFeatureRequest(
-    title: "Dark Mode Support",
-    description: "Please add a dark mode option for the app",
-    submitterIdentifier: "user_123"
+FeaturamaView(
+    accentColor: .mint,
+    theme: FeaturamaThemeOverrides(
+        background: Color(red: 0.94, green: 1.0, blue: 0.976),
+        card: Color(red: 0.878, green: 1.0, blue: 0.953)
+    ),
+    onClose: { dismiss() }
 )
-let created = try await FeaturamaSdk.createRequest(newRequest)
+```
 
-// Vote on a feature request
-let voted = try await FeaturamaSdk.vote(
+## Pre-built UI
+
+`FeaturamaView` is a full-screen SwiftUI component with:
+
+- Feature request list with filtering (New, Trending, Top)
+- Create request form with optional email collection
+- Detail view with comments
+- Voting and comment voting
+- Dark/light mode support
+- Customizable accent color and theme overrides
+- Localization via `FeaturamaStrings`
+
+### Theme Overrides
+
+Override individual colors while keeping the rest auto-generated:
+
+```swift
+let theme = FeaturamaThemeOverrides(
+    background: .black,
+    card: Color(white: 0.1),
+    accentForeground: .white
+)
+
+FeaturamaView(accentColor: .purple, theme: theme)
+```
+
+Available override properties: `background`, `card`, `secondary`, `text`, `textSecondary`, `accent`, `accentLight`, `accentForeground`, `border`, `borderAccent`, `gray100`, `warning`, `warningLight`, `warningText`.
+
+### Localization
+
+Pass custom strings for full localization:
+
+```swift
+let strings = FeaturamaStrings(
+    featureRequests: "Funktionswünsche",
+    newRequest: "Neuer Wunsch",
+    vote: "Stimme"
+    // ... see FeaturamaStrings for all keys
+)
+
+FeaturamaView(accentColor: .blue, strings: strings)
+```
+
+## API Client
+
+Use the API client directly if you want to build your own UI:
+
+```swift
+// Fetch requests
+let response = try await FeaturamaSdk.getRequests(page: 1, pageSize: 20, filter: "trending")
+
+// Create a request
+let request = CreateFeatureRequest(
+    title: "Dark Mode",
+    description: "Add dark mode support",
+    submitterIdentifier: "user_123",
+    email: "user@example.com"
+)
+let created = try await FeaturamaSdk.createRequest(request)
+
+// Vote
+let updated = try await FeaturamaSdk.toggleVote(
     requestId: created.id,
     voterIdentifier: "user_456"
 )
 
-// Remove a vote
-let unvoted = try await FeaturamaSdk.removeVote(
+// Comments
+let comments = try await FeaturamaSdk.getComments(requestId: created.id)
+let comment = try await FeaturamaSdk.addComment(
     requestId: created.id,
-    voterIdentifier: "user_456"
+    input: CreateCommentRequest(content: "Great idea!", authorIdentifier: "user_456")
 )
 ```
 
-## Advanced Usage
-
-### Using a Custom Client Instance
-
-If you need multiple configurations or don't want to use the singleton:
-
-```swift
-let config = try Configuration(
-    apiKey: "fm_live_your_api_key_here",
-    baseURL: URL(string: "https://your-deployment.convex.site")!,
-    timeoutInterval: 60
-)
-let client = FeaturamaSdkClient(configuration: config)
-
-let response = try await client.getRequests()
-```
-
-### Custom Convex Deployment
-
-Point the SDK to your own Convex deployment:
-
-```swift
-try FeaturamaSdk.configure(
-    apiKey: "fm_live_your_api_key_here",
-    baseURL: URL(string: "https://your-deployment.convex.site")!
-)
-```
-
-## API Reference
-
-### FeaturamaSdk
-
-Static methods for the singleton pattern:
+### All Methods
 
 | Method | Description |
 |--------|-------------|
-| `configure(apiKey:baseURL:timeoutInterval:)` | Configure the SDK |
-| `reset()` | Reset the SDK, clearing the shared client |
-| `isConfigured` | Check if the SDK is configured |
-| `getRequests(page:pageSize:)` | Fetch paginated feature requests |
-| `createRequest(_:)` | Create a new feature request |
-| `updateRequest(id:updateRequest:)` | Update an existing feature request |
-| `vote(requestId:voterIdentifier:)` | Add a vote to a feature request |
-| `removeVote(requestId:voterIdentifier:)` | Remove a vote from a feature request |
-
-### FeaturamaSdkClient
-
-Instance methods for direct client usage:
-
-| Method | Description |
-|--------|-------------|
-| `getRequests(page:pageSize:)` | Fetch paginated feature requests |
-| `createRequest(_:)` | Create a new feature request |
-| `updateRequest(id:updateRequest:)` | Update an existing feature request |
-| `vote(requestId:voterIdentifier:)` | Add a vote to a feature request |
-| `removeVote(requestId:voterIdentifier:)` | Remove a vote from a feature request |
-
-### Models
-
-#### FeatureRequest
-
-```swift
-public struct FeatureRequest {
-    let id: UUID
-    let projectId: UUID
-    let title: String
-    let description: String
-    let status: FeatureRequestStatus
-    let source: FeatureRequestSource
-    let voteCount: Int
-    let submitterIdentifier: String
-    let createdAt: Date
-}
-```
-
-#### FeatureRequestStatus
-
-```swift
-public enum FeatureRequestStatus: Int {
-    case requested = 0
-    case roadmap = 1
-    case inProgress = 2
-    case done = 3
-    case declined = 4
-}
-```
-
-#### FeatureRequestSource
-
-```swift
-public enum FeatureRequestSource: Int {
-    case sdk = 0
-    case dashboard = 1
-}
-```
-
-### DTOs
-
-#### CreateFeatureRequest
-
-```swift
-public struct CreateFeatureRequest {
-    let title: String
-    let description: String
-    let submitterIdentifier: String
-}
-```
-
-#### UpdateFeatureRequest
-
-```swift
-public struct UpdateFeatureRequest {
-    let title: String
-    let description: String
-    let submitterIdentifier: String
-}
-```
-
-#### VoteRequest
-
-```swift
-public struct VoteRequest {
-    let voterIdentifier: String
-}
-```
+| `configure(apiKey:baseURL:)` | Initialize the SDK |
+| `getConfig()` | Fetch project configuration |
+| `getRequests(page:pageSize:filter:submitterIdentifier:)` | List feature requests |
+| `createRequest(_:)` | Create a feature request |
+| `updateRequest(id:updateRequest:)` | Update a feature request |
+| `vote(requestId:voterIdentifier:)` | Add a vote |
+| `removeVote(requestId:voterIdentifier:)` | Remove a vote |
+| `toggleVote(requestId:voterIdentifier:)` | Toggle a vote (handles conflicts) |
+| `getComments(requestId:)` | Fetch comments |
+| `addComment(requestId:input:)` | Add a comment |
+| `voteComment(requestId:commentId:voterIdentifier:)` | Vote on a comment |
+| `removeCommentVote(requestId:commentId:voterIdentifier:)` | Remove a comment vote |
+| `toggleCommentVote(requestId:commentId:voterIdentifier:)` | Toggle a comment vote |
 
 ## Error Handling
-
-The SDK throws `FeaturamaSdkError` for all error cases:
 
 ```swift
 do {
     let response = try await FeaturamaSdk.getRequests()
 } catch FeaturamaSdkError.unauthorized {
-    print("Invalid API key")
-} catch FeaturamaSdkError.notFound {
-    print("Resource not found")
+    // Invalid API key
 } catch FeaturamaSdkError.conflict(let message) {
-    print("Conflict: \(message)")  // e.g., already voted
+    // Already voted
 } catch FeaturamaSdkError.httpError(let code, let message) {
-    print("HTTP \(code): \(message ?? "Unknown error")")
+    // Other HTTP error
 } catch {
-    print("Error: \(error)")
+    // Network or decoding error
 }
 ```
 
-### Error Types
-
-| Error | Description |
-|-------|-------------|
-| `invalidApiKey` | API key doesn't start with `fm_live_` |
-| `invalidURL` | Failed to construct URL |
-| `httpError(statusCode:message:)` | HTTP error response |
-| `decodingError(Error)` | Failed to decode response |
-| `networkError(Error)` | Network connectivity error |
-| `unauthorized` | 401 - Invalid or missing API key |
-| `notFound` | 404 - Resource not found |
-| `conflict(message:)` | 409 - Conflict (e.g., duplicate vote) |
-
 ## Thread Safety
 
-The SDK is fully thread-safe and uses Swift's `Sendable` protocol. All methods are `async` and can be called from any thread or actor context.
+All types conform to `Sendable`. All methods are `async`. Safe to call from any actor or thread.
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT — see [LICENSE](LICENSE) for details.
