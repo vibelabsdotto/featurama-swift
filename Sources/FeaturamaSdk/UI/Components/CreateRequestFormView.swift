@@ -11,14 +11,35 @@ struct CreateRequestFormView: View {
     @State private var description = ""
     @State private var email = ""
     @State private var isSubmitting = false
+    @State private var emailTouched = false
+    @State private var showEmailSkipAlert = false
 
     private var trimmedTitle: String {
         title.trimmingCharacters(in: .whitespaces)
     }
 
+    private var trimmedEmail: String {
+        email.trimmingCharacters(in: .whitespaces)
+    }
+
+    private static let emailRegex: NSPredicate = {
+        let pattern = "[^\\s@]+@[^\\s@]+\\.[^\\s@]+"
+        return NSPredicate(format: "SELF MATCHES %@", pattern)
+    }()
+
+    private var emailError: String? {
+        guard emailCollection != .none else { return nil }
+        guard !trimmedEmail.isEmpty else { return nil }
+        guard Self.emailRegex.evaluate(with: trimmedEmail) else {
+            return strings.emailInvalid
+        }
+        return nil
+    }
+
     private var isValid: Bool {
         if trimmedTitle.isEmpty { return false }
-        if emailCollection == .required && email.trimmingCharacters(in: .whitespaces).isEmpty { return false }
+        if emailError != nil { return false }
+        if emailCollection == .required && trimmedEmail.isEmpty { return false }
         return true
     }
 
@@ -42,19 +63,11 @@ struct CreateRequestFormView: View {
 
                 Button {
                     guard isValid, !isSubmitting else { return }
-                    isSubmitting = true
-                    Task {
-                        let emailValue = email.trimmingCharacters(in: .whitespaces)
-                        await onSubmit(
-                            trimmedTitle,
-                            description.trimmingCharacters(in: .whitespaces),
-                            emailValue.isEmpty ? nil : emailValue
-                        )
-                        title = ""
-                        description = ""
-                        email = ""
-                        isSubmitting = false
+                    if emailCollection == .optional && trimmedEmail.isEmpty {
+                        showEmailSkipAlert = true
+                        return
                     }
+                    performSubmit()
                 } label: {
                     if isSubmitting {
                         ProgressView()
@@ -106,16 +119,50 @@ struct CreateRequestFormView: View {
                                 .padding(14)
                                 .background(RoundedRectangle(cornerRadius: 8).fill(theme.secondary))
                                 .foregroundColor(theme.text)
+                                .onChange(of: email) { _ in
+                                    if !emailTouched { emailTouched = true }
+                                }
 
-                            Text(emailCollection == .required ? strings.emailRequired : strings.emailEncouragement)
-                                .font(.system(size: 12))
-                                .foregroundColor(theme.textSecondary)
-                                .padding(.horizontal, 4)
+                            if let error = emailError, emailTouched {
+                                Text(error)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.red)
+                                    .padding(.horizontal, 4)
+                            } else {
+                                Text(emailCollection == .required ? strings.emailRequired : strings.emailEncouragement)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(theme.textSecondary)
+                                    .padding(.horizontal, 4)
+                            }
                         }
                     }
                 }
                 .padding(16)
             }
+        }
+        .alert(strings.emailSkipTitle, isPresented: $showEmailSkipAlert) {
+            Button(strings.cancel, role: .cancel) { }
+            Button(strings.emailSkipConfirm) {
+                performSubmit()
+            }
+        } message: {
+            Text(strings.emailSkipMessage)
+        }
+    }
+
+    private func performSubmit() {
+        isSubmitting = true
+        Task {
+            await onSubmit(
+                trimmedTitle,
+                description.trimmingCharacters(in: .whitespaces),
+                trimmedEmail.isEmpty ? nil : trimmedEmail
+            )
+            title = ""
+            description = ""
+            email = ""
+            emailTouched = false
+            isSubmitting = false
         }
     }
 }

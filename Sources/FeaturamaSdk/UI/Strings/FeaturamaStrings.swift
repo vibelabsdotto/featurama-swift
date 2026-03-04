@@ -16,6 +16,10 @@ public struct FeaturamaStrings {
     public var emailPlaceholder: String
     public var emailEncouragement: String
     public var emailRequired: String
+    public var emailSkipTitle: String
+    public var emailSkipMessage: String
+    public var emailSkipConfirm: String
+    public var emailInvalid: String
     public var comments: String
     public var commentsCount: String
     public var noComments: String
@@ -44,6 +48,10 @@ public struct FeaturamaStrings {
         emailPlaceholder: String = "Your email address",
         emailEncouragement: String = "Add your email so we can follow up",
         emailRequired: String = "Email is required",
+        emailSkipTitle: String = "Submit without email?",
+        emailSkipMessage: String = "You haven't entered an email. We won't be able to follow up with you.",
+        emailSkipConfirm: String = "Submit anyway",
+        emailInvalid: String = "Please enter a valid email address",
         comments: String = "Comments",
         commentsCount: String = "{count} comments",
         noComments: String = "No comments yet",
@@ -71,6 +79,10 @@ public struct FeaturamaStrings {
         self.emailPlaceholder = emailPlaceholder
         self.emailEncouragement = emailEncouragement
         self.emailRequired = emailRequired
+        self.emailSkipTitle = emailSkipTitle
+        self.emailSkipMessage = emailSkipMessage
+        self.emailSkipConfirm = emailSkipConfirm
+        self.emailInvalid = emailInvalid
         self.comments = comments
         self.commentsCount = commentsCount
         self.noComments = noComments
