@@ -166,7 +166,9 @@ struct RequestDetailView: View {
             }
             .scrollDismissesKeyboard(.interactively)
             .onTapGesture {
+                #if canImport(UIKit)
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                #endif
             }
 
             // Add comment form
