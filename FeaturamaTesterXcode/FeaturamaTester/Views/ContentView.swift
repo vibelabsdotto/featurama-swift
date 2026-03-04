@@ -4,6 +4,7 @@ import FeaturamaSdk
 struct ContentView: View {
     @EnvironmentObject var config: Config
     @Environment(\.colorScheme) private var colorScheme
+    @State private var showFeaturama = false
 
     private var isDark: Bool { colorScheme == .dark }
 
@@ -23,11 +24,15 @@ struct ContentView: View {
     var body: some View {
         if config.isConfigured {
             NavigationStack {
-                FeaturamaView(
-                    accentColor: Color(red: 0.0, green: 0.8, blue: 0.65),
-                    theme: mintTheme,
-                    onClose: nil
-                )
+                VStack {
+                    Button("Feature Requests") {
+                        showFeaturama = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .tint(Color(red: 0.0, green: 0.8, blue: 0.65))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .toolbar {
                     ToolbarItem(placement: .automatic) {
                         NavigationLink {
@@ -37,6 +42,13 @@ struct ContentView: View {
                                 .font(.system(size: 20))
                         }
                     }
+                }
+                .sheet(isPresented: $showFeaturama) {
+                    FeaturamaView(
+                        accentColor: Color(red: 0.0, green: 0.8, blue: 0.65),
+                        theme: mintTheme,
+                        onClose: { showFeaturama = false }
+                    )
                 }
             }
         } else {

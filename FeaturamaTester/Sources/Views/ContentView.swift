@@ -3,14 +3,19 @@ import FeaturamaSdk
 
 struct ContentView: View {
     @EnvironmentObject var config: Config
+    @State private var showFeaturama = false
 
     var body: some View {
         if config.isConfigured {
             NavigationStack {
-                FeaturamaView(
-                    accentColor: .indigo,
-                    onClose: nil
-                )
+                VStack {
+                    Button("Feature Requests") {
+                        showFeaturama = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .toolbar {
                     ToolbarItem(placement: .automatic) {
                         NavigationLink {
@@ -20,6 +25,12 @@ struct ContentView: View {
                                 .font(.system(size: 20))
                         }
                     }
+                }
+                .sheet(isPresented: $showFeaturama) {
+                    FeaturamaView(
+                        accentColor: .indigo,
+                        onClose: { showFeaturama = false }
+                    )
                 }
             }
         } else {
