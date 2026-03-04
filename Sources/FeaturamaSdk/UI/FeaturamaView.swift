@@ -93,14 +93,32 @@ public struct FeaturamaView: View {
                     onToggleCommentVote: handleToggleCommentVote,
                     onAddComment: handleAddComment
                 )
+            } else if isAdding {
+                // Create request form (full screen)
+                CreateRequestFormView(
+                    theme: theme,
+                    strings: strings,
+                    emailCollection: emailCollection,
+                    onSubmit: { title, desc, email in
+                        let req = CreateFeatureRequest(
+                            title: title,
+                            description: desc,
+                            submitterIdentifier: voterId,
+                            email: email
+                        )
+                        _ = try? await FeaturamaSdk.createRequest(req)
+                        isAdding = false
+                        await loadData()
+                    },
+                    onCancel: { isAdding = false }
+                )
             } else {
                 // List view
                 VStack(spacing: 0) {
                     HeaderView(
                         theme: theme,
                         strings: strings,
-                        onClose: onClose ?? { dismiss() },
-                        onAdd: { isAdding = true }
+                        onClose: onClose ?? { dismiss() }
                     )
 
                     FilterTabsView(
@@ -110,26 +128,6 @@ public struct FeaturamaView: View {
                     )
 
                     Spacer().frame(height: 12)
-
-                    if isAdding {
-                        CreateRequestFormView(
-                            theme: theme,
-                            strings: strings,
-                            emailCollection: emailCollection,
-                            onSubmit: { title, desc, email in
-                                let req = CreateFeatureRequest(
-                                    title: title,
-                                    description: desc,
-                                    submitterIdentifier: voterId,
-                                    email: email
-                                )
-                                _ = try? await FeaturamaSdk.createRequest(req)
-                                isAdding = false
-                                await loadData()
-                            },
-                            onCancel: { isAdding = false }
-                        )
-                    }
 
                     FeaturamaRequestListView(
                         theme: theme,
@@ -152,11 +150,20 @@ public struct FeaturamaView: View {
                         },
                         onRefresh: { await loadData() }
                     )
+                }
+                .overlay(alignment: .bottom) {
+                    ZStack(alignment: .bottom) {
+                        if showBranding {
+                            BrandingView(theme: theme)
+                        }
 
-                    if showBranding {
-                        BrandingView(theme: theme)
-                            .padding(.bottom, 16)
+                        HStack {
+                            Spacer()
+                            FabView(theme: theme, onPress: { isAdding = true })
+                                .padding(.trailing, 16)
+                        }
                     }
+                    .padding(.bottom, 4)
                 }
             }
         }
@@ -209,10 +216,28 @@ public struct FeaturamaView: View {
     private func handleToggleVoteInDetail() {
         guard let request = selectedRequest else { return }
         guard !votingIds.contains(request.id) else { return }
+        let wasVoted = request.hasVoted
         votingIds.insert(request.id)
         Task {
             defer { votingIds.remove(request.id) }
-            if let updated = try? await FeaturamaSdk.toggleVote(requestId: request.id, voterIdentifier: voterId) {
+            if var updated = try? await FeaturamaSdk.toggleVote(requestId: request.id, voterIdentifier: voterId) {
+                // Server response from vote/removeVote doesn't include hasVoted, so flip manually
+                updated = FeatureRequest(
+                    id: updated.id,
+                    projectId: updated.projectId,
+                    title: updated.title,
+                    description: updated.description,
+                    status: updated.status,
+                    source: updated.source,
+                    voteCount: updated.voteCount,
+                    submitterIdentifier: updated.submitterIdentifier,
+                    submitterEmail: updated.submitterEmail,
+                    commentCount: updated.commentCount,
+                    createdAt: updated.createdAt,
+                    deviceInfo: updated.deviceInfo,
+                    isApproved: updated.isApproved,
+                    hasVoted: !wasVoted
+                )
                 selectedRequest = updated
             }
         }

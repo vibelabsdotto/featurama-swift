@@ -44,5 +44,6 @@ struct FilterTabsView: View {
                 .fill(theme.gray100)
         )
         .padding(.horizontal, 16)
+        .padding(.top, 12)
     }
 }

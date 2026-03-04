@@ -52,9 +52,9 @@ struct CommentItemView: View {
                         ProgressView()
                             .tint(theme.accent)
                     } else {
-                        ChevronUpIconShape()
-                            .stroke(theme.textSecondary, style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
-                            .frame(width: 14, height: 14)
+                        Image(systemName: "chevron.up")
+                            .font(.system(size: 11, weight: .semibold))
+                            .foregroundColor(theme.textSecondary)
                         Text("\(comment.voteCount)")
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(theme.textSecondary)

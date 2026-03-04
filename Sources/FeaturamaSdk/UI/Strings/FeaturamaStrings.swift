@@ -24,6 +24,7 @@ public struct FeaturamaStrings {
     public var postComment: String
     public var developerBadge: String
     public var pendingReview: String
+    public var newRequest: String
 
     public init(
         title: String = "Feature Requests",
@@ -50,7 +51,8 @@ public struct FeaturamaStrings {
         commentPlaceholder: String = "Write a comment...",
         postComment: String = "Post",
         developerBadge: String = "Developer",
-        pendingReview: String = "Pending Review"
+        pendingReview: String = "Pending Review",
+        newRequest: String = "New Request"
     ) {
         self.title = title
         self.filterNew = filterNew
@@ -77,5 +79,6 @@ public struct FeaturamaStrings {
         self.postComment = postComment
         self.developerBadge = developerBadge
         self.pendingReview = pendingReview
+        self.newRequest = newRequest
     }
 }

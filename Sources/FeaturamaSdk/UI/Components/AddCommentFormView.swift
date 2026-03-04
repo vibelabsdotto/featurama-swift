@@ -36,12 +36,9 @@ struct AddCommentFormView: View {
                     ProgressView()
                         .tint(theme.accentForeground)
                 } else {
-                    SendIconShape()
-                        .stroke(
-                            trimmedContent.isEmpty ? theme.textSecondary : theme.accentForeground,
-                            style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
-                        )
-                        .frame(width: 18, height: 18)
+                    Image(systemName: "paperplane.fill")
+                        .font(.system(size: 15))
+                        .foregroundColor(trimmedContent.isEmpty ? theme.textSecondary : theme.accentForeground)
                 }
             }
             .frame(width: 36, height: 36)

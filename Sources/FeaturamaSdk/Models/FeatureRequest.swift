@@ -41,6 +41,9 @@ public struct FeatureRequest: Codable, Identifiable, Sendable, Equatable {
     /// Whether the request has been approved by a developer
     public let isApproved: Bool
 
+    /// Whether the current user has voted on this request
+    public let hasVoted: Bool
+
     public init(
         id: String,
         projectId: String,
@@ -54,7 +57,8 @@ public struct FeatureRequest: Codable, Identifiable, Sendable, Equatable {
         commentCount: Int = 0,
         createdAt: Date,
         deviceInfo: DeviceInfoData? = nil,
-        isApproved: Bool = true
+        isApproved: Bool = true,
+        hasVoted: Bool = false
     ) {
         self.id = id
         self.projectId = projectId
@@ -69,6 +73,7 @@ public struct FeatureRequest: Codable, Identifiable, Sendable, Equatable {
         self.createdAt = createdAt
         self.deviceInfo = deviceInfo
         self.isApproved = isApproved
+        self.hasVoted = hasVoted
     }
 
     public init(from decoder: Decoder) throws {
@@ -86,5 +91,6 @@ public struct FeatureRequest: Codable, Identifiable, Sendable, Equatable {
         createdAt = try container.decode(Date.self, forKey: .createdAt)
         deviceInfo = try container.decodeIfPresent(DeviceInfoData.self, forKey: .deviceInfo)
         isApproved = try container.decodeIfPresent(Bool.self, forKey: .isApproved) ?? true
+        hasVoted = try container.decodeIfPresent(Bool.self, forKey: .hasVoted) ?? false
     }
 }

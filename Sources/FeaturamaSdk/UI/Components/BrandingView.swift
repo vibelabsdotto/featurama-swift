@@ -20,6 +20,7 @@ struct BrandingView: View {
             .padding(.vertical, 8)
             .background(theme.gray100)
             .clipShape(RoundedRectangle(cornerRadius: 20))
+            .shadow(color: .black.opacity(0.1), radius: 3, y: 2)
         }
     }
 }

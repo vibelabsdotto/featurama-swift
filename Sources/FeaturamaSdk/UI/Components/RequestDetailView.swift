@@ -24,31 +24,39 @@ struct RequestDetailView: View {
         }
     }
 
+    private var voteColor: Color {
+        request.hasVoted ? theme.accent : theme.textSecondary
+    }
+
+    private var voteBg: Color {
+        request.hasVoted ? theme.accentLight : theme.gray100
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             // Header
             HStack(spacing: 8) {
                 Button(action: onBack) {
-                    ChevronLeftIconShape()
-                        .stroke(theme.text, style: StrokeStyle(lineWidth: 2.5, lineCap: .round))
-                        .frame(width: 20, height: 20)
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(theme.text)
                 }
-                .frame(width: 28, height: 28)
+                .frame(width: 44, height: 44)
                 .buttonStyle(.plain)
 
                 Text(request.title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(theme.text)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)
 
-                Color.clear.frame(width: 28, height: 28)
+                Color.clear.frame(width: 44, height: 44)
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
             .padding(.top, 8)
             .overlay(alignment: .bottom) {
-                Rectangle().fill(theme.border).frame(height: 1)
+                Rectangle().fill(theme.border).frame(height: 0.5)
             }
 
             // Content
@@ -94,19 +102,19 @@ struct RequestDetailView: View {
                         HStack(spacing: 6) {
                             if isVotingRequest {
                                 ProgressView()
-                                    .tint(theme.accent)
+                                    .tint(voteColor)
                             } else {
-                                ChevronUpIconShape()
-                                    .stroke(theme.accent, style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                                    .frame(width: 18, height: 18)
+                                Image(systemName: "chevron.up")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(voteColor)
                                 Text("\(request.voteCount)")
                                     .font(.system(size: 15, weight: .bold))
-                                    .foregroundColor(theme.accent)
+                                    .foregroundColor(voteColor)
                             }
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 14)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(theme.accentLight))
+                        .background(RoundedRectangle(cornerRadius: 8).fill(voteBg))
                     }
                     .buttonStyle(.plain)
                     .disabled(isVotingRequest || !request.isApproved)
@@ -155,6 +163,10 @@ struct RequestDetailView: View {
                 }
                 .padding(16)
                 .padding(.bottom, 24)
+            }
+            .scrollDismissesKeyboard(.interactively)
+            .onTapGesture {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
 
             // Add comment form
