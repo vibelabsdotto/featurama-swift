@@ -4,7 +4,7 @@ import SwiftUI
 final class Config: ObservableObject {
     private static let apiKeyKey = "featurama_api_key"
     private static let baseUrlKey = "featurama_base_url"
-    private static let defaultBaseUrl = "http://localhost:5001"
+    private static let defaultBaseUrl = "https://newapi.featurama.app"
 
     @Published var apiKey: String {
         didSet {

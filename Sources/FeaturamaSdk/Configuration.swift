@@ -20,8 +20,8 @@ public struct Configuration: Sendable {
     /// The required prefix for valid API keys
     public static let apiKeyPrefix = "fm_live_"
 
-    /// Default base URL for the Featurama API (Convex deployment)
-    public static let defaultBaseURL = URL(string: "https://featurama.app")!
+    /// Default base URL for the Featurama API
+    public static let defaultBaseURL = URL(string: "https://newapi.featurama.app")!
 
     /// Default timeout interval (30 seconds)
     public static let defaultTimeoutInterval: TimeInterval = 30

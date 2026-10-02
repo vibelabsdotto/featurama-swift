@@ -12,7 +12,11 @@ struct RequestDetailView: View {
     let onBack: () -> Void
     let onToggleRequestVote: () -> Void
     let onToggleCommentVote: (String) -> Void
-    let onAddComment: (String) -> Void
+    let onAddComment: (String) async throws -> Void
+    let isOwner: Bool
+    let commentsError: String?
+    let onRetryComments: () -> Void
+    let onEdit: () -> Void
 
     private var statusLabel: String {
         switch request.status {
@@ -50,7 +54,15 @@ struct RequestDetailView: View {
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)
 
-                Color.clear.frame(width: 44, height: 44)
+                if isOwner {
+                    Button(action: onEdit) {
+                        Image(systemName: "pencil")
+                    }
+                    .frame(width: 44, height: 44)
+                    .accessibilityLabel(strings.editRequest)
+                } else {
+                    Color.clear.frame(width: 44, height: 44)
+                }
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 8)
@@ -138,6 +150,9 @@ struct RequestDetailView: View {
                             Spacer()
                         }
                         .padding(.top, 16)
+                    } else if let commentsError {
+                        Text(commentsError).foregroundColor(.red)
+                        Button(strings.retry, action: onRetryComments)
                     } else if comments.isEmpty {
                         VStack(spacing: 4) {
                             Text(strings.noComments)
@@ -172,7 +187,7 @@ struct RequestDetailView: View {
             }
 
             // Add comment form
-            if request.isApproved {
+            if request.isApproved || isOwner {
                 AddCommentFormView(
                     theme: theme,
                     strings: strings,

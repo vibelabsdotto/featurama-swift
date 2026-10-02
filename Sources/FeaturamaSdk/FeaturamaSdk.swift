@@ -8,7 +8,7 @@ import Foundation
 /// // Configure the SDK (typically in AppDelegate or App init)
 /// try FeaturamaSdk.configure(
 ///     apiKey: "fm_live_your_api_key_here",
-///     baseURL: URL(string: "https://your-deployment.convex.site")!
+///     baseURL: URL(string: "https://api.example.com")!
 /// )
 ///
 /// // Use the shared client
@@ -24,9 +24,18 @@ import Foundation
 /// ```
 public final class FeaturamaSdk: @unchecked Sendable {
     /// The shared SDK client instance. Configure using `configure(apiKey:baseURL:timeoutInterval:)` before use.
-    public private(set) static var shared: FeaturamaSdkClient?
+    private final class SharedState: @unchecked Sendable {
+        let lock = NSLock()
+        var client: FeaturamaSdkClient?
+    }
+    private static let state = SharedState()
 
-    private static let lock = NSLock()
+    public static var shared: FeaturamaSdkClient? {
+        state.lock.lock()
+        defer { state.lock.unlock() }
+        return state.client
+    }
+
 
     private init() {}
 
@@ -51,23 +60,23 @@ public final class FeaturamaSdk: @unchecked Sendable {
     /// Configures the SDK with a Configuration object
     /// - Parameter configuration: The SDK configuration
     public static func configure(with configuration: Configuration) {
-        lock.lock()
-        defer { lock.unlock() }
-        shared = FeaturamaSdkClient(configuration: configuration)
+        state.lock.lock()
+        defer { state.lock.unlock() }
+        state.client = FeaturamaSdkClient(configuration: configuration)
     }
 
     /// Resets the SDK, clearing the shared client instance
     public static func reset() {
-        lock.lock()
-        defer { lock.unlock() }
-        shared = nil
+        state.lock.lock()
+        defer { state.lock.unlock() }
+        state.client = nil
     }
 
     /// Returns whether the SDK has been configured
     public static var isConfigured: Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return shared != nil
+        state.lock.lock()
+        defer { state.lock.unlock() }
+        return state.client != nil
     }
 }
 

@@ -7,11 +7,12 @@ import AppKit
 
 /// Collects device information for feature request submissions
 enum DeviceInfoProvider {
+    @MainActor
     static func collect() -> DeviceInfoData {
         var info = DeviceInfoData()
 
         #if os(iOS) || os(tvOS)
-        info.platform = "iOS"
+        info.platform = UIDevice.current.systemName
         info.osVersion = UIDevice.current.systemVersion
         info.deviceModel = UIDevice.current.model
         info.deviceManufacturer = "Apple"

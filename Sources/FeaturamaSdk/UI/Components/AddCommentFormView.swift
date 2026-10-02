@@ -4,7 +4,9 @@ struct AddCommentFormView: View {
     let theme: FeaturamaTheme
     let strings: FeaturamaStrings
     let isSubmitting: Bool
-    let onSubmit: (String) -> Void
+    let onSubmit: (String) async throws -> Void
+
+    @State private var submissionError: String?
 
     @State private var content = ""
 
@@ -29,8 +31,14 @@ struct AddCommentFormView: View {
 
             Button(action: {
                 guard !trimmedContent.isEmpty, !isSubmitting else { return }
-                onSubmit(trimmedContent)
-                content = ""
+                Task {
+                    do {
+                        try await onSubmit(trimmedContent)
+                        content = ""
+                    } catch {
+                        submissionError = error.localizedDescription
+                    }
+                }
             }) {
                 if isSubmitting {
                     ProgressView()
@@ -47,6 +55,15 @@ struct AddCommentFormView: View {
             )
             .buttonStyle(.plain)
             .disabled(trimmedContent.isEmpty || isSubmitting)
+            .accessibilityLabel(strings.postComment)
+        }
+        .alert(strings.error, isPresented: Binding(
+            get: { submissionError != nil },
+            set: { if !$0 { submissionError = nil } }
+        )) {
+            Button(strings.cancel, role: .cancel) { submissionError = nil }
+        } message: {
+            Text(submissionError ?? "")
         }
         .padding(12)
         .background(theme.card)

@@ -76,6 +76,17 @@ public struct FeatureRequest: Codable, Identifiable, Sendable, Equatable {
         self.hasVoted = hasVoted
     }
 
+    func withVotingState(_ hasVoted: Bool, submitterIdentifier: String? = nil) -> FeatureRequest {
+        FeatureRequest(
+            id: id, projectId: projectId, title: title, description: description,
+            status: status, source: source, voteCount: voteCount,
+            submitterIdentifier: submitterIdentifier ?? self.submitterIdentifier,
+            submitterEmail: submitterEmail, commentCount: commentCount,
+            createdAt: createdAt, deviceInfo: deviceInfo, isApproved: isApproved,
+            hasVoted: hasVoted
+        )
+    }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)

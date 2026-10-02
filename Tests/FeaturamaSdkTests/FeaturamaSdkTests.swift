@@ -11,8 +11,8 @@ final class FeaturamaSdkTests: XCTestCase {
     // MARK: - Configuration Tests
 
     func testValidApiKey() throws {
-        let config = try Configuration(apiKey: "fm_live_abc123def456ghi789jkl")
-        XCTAssertEqual(config.apiKey, "fm_live_abc123def456ghi789jkl")
+        let config = try Configuration(apiKey: "fm_live_test_key_123456")
+        XCTAssertEqual(config.apiKey, "fm_live_test_key_123456")
     }
 
     func testInvalidApiKeyPrefix() {
@@ -162,6 +162,89 @@ final class FeaturamaSdkTests: XCTestCase {
         XCTAssertTrue(request.isApproved)
         XCTAssertNil(request.submitterEmail)
         XCTAssertNil(request.deviceInfo)
+    }
+
+    func testDateDecodingAcceptsBackendMilliseconds() throws {
+        // The backend always serializes createdAt via JS toISOString(),
+        // which includes fractional seconds. .iso8601 rejects this shape
+        // on iOS <= 17 / macOS <= 14; the SDK's custom strategy must not.
+        let json = """
+        {
+            "id": "abc123",
+            "projectId": "proj456",
+            "title": "Test",
+            "description": "Desc",
+            "status": "Requested",
+            "source": "SDK",
+            "voteCount": 0,
+            "submitterIdentifier": "user1",
+            "createdAt": "2024-01-15T10:30:00.123Z"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom { try FeaturamaDateDecoding.decode($0) }
+
+        let data = json.data(using: .utf8)!
+        let request = try decoder.decode(FeatureRequest.self, from: data)
+
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let expected = formatter.date(from: "2024-01-15T10:30:00.123Z")!
+        XCTAssertEqual(request.createdAt.timeIntervalSince1970,
+                       expected.timeIntervalSince1970,
+                       accuracy: 0.001)
+    }
+
+    func testDateDecodingAcceptsWholeSeconds() throws {
+        let json = """
+        {
+            "id": "abc123",
+            "projectId": "proj456",
+            "title": "Test",
+            "description": "Desc",
+            "status": "Requested",
+            "source": "SDK",
+            "voteCount": 0,
+            "submitterIdentifier": "user1",
+            "createdAt": "2024-01-15T10:30:00Z"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom { try FeaturamaDateDecoding.decode($0) }
+
+        let data = json.data(using: .utf8)!
+        let request = try decoder.decode(FeatureRequest.self, from: data)
+
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        let expected = formatter.date(from: "2024-01-15T10:30:00Z")!
+        XCTAssertEqual(request.createdAt.timeIntervalSince1970,
+                       expected.timeIntervalSince1970,
+                       accuracy: 0.001)
+    }
+
+    func testDateDecodingRejectsMalformedTimestamp() throws {
+        let json = """
+        {
+            "id": "abc123",
+            "projectId": "proj456",
+            "title": "Test",
+            "description": "Desc",
+            "status": "Requested",
+            "source": "SDK",
+            "voteCount": 0,
+            "submitterIdentifier": "user1",
+            "createdAt": "not-a-date"
+        }
+        """
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .custom { try FeaturamaDateDecoding.decode($0) }
+
+        let data = json.data(using: .utf8)!
+        XCTAssertThrowsError(try decoder.decode(FeatureRequest.self, from: data))
     }
 
     func testPaginatedResponseDecoding() throws {

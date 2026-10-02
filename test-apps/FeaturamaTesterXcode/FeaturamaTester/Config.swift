@@ -4,7 +4,7 @@ import SwiftUI
 final class Config: ObservableObject {
     private static let apiKeyKey = "featurama_api_key"
     private static let baseUrlKey = "featurama_base_url"
-    private static let defaultBaseUrl = "https://grateful-badger-364.convex.site"
+    private static let defaultBaseUrl = "https://newapi.featurama.app"
 
     @Published var apiKey: String {
         didSet {
@@ -23,7 +23,7 @@ final class Config: ObservableObject {
     }
 
     init() {
-        self.apiKey = UserDefaults.standard.string(forKey: Self.apiKeyKey) ?? "fm_live_ZulvaxSJu6yqIG8qfK1EwCMA"
+        self.apiKey = UserDefaults.standard.string(forKey: Self.apiKeyKey) ?? ""
         self.baseUrl = UserDefaults.standard.string(forKey: Self.baseUrlKey) ?? Self.defaultBaseUrl
     }
 }

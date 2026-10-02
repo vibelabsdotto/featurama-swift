@@ -33,13 +33,13 @@ git push origin 0.4.0
 ### 3. GitHub Release erstellen
 
 ```bash
-gh release create <VERSION> --repo featurama-app/featurama-swift --title "<VERSION>" --notes "Beschreibung"
+gh release create <VERSION> --repo vibelabsdotto/featurama-swift --title "<VERSION>" --notes "Beschreibung"
 ```
 
 Beispiel:
 
 ```bash
-gh release create 0.4.0 --repo featurama-app/featurama-swift --title "0.4.0" --notes "$(cat <<'EOF'
+gh release create 0.4.0 --repo vibelabsdotto/featurama-swift --title "0.4.0" --notes "$(cat <<'EOF'
 ## Was ist neu
 
 - Feature X hinzugefügt
@@ -50,11 +50,11 @@ EOF
 
 ### 4. Überprüfen
 
-- Release ist sichtbar unter: https://github.com/featurama-app/featurama-swift/releases
+- Release ist sichtbar unter: https://github.com/vibelabsdotto/featurama-swift/releases
 - Nutzer können die neue Version sofort über SPM beziehen:
 
 ```swift
-.package(url: "https://github.com/featurama-app/featurama-swift.git", from: "<VERSION>")
+.package(url: "https://github.com/vibelabsdotto/featurama-swift.git", from: "<VERSION>")
 ```
 
 ## Hinweise

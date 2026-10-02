@@ -1,6 +1,10 @@
 import Foundation
 
 /// Client for interacting with the Featurama API
+///
+/// Request and comment IDs must be nonempty URL-unreserved ASCII components
+/// (`A-Z`, `a-z`, `0-9`, `-`, `.`, `_`, `~`), other than `.` or `..`.
+/// Invalid IDs throw `FeaturamaSdkError.invalidURL` before sending a request.
 public final class FeaturamaSdkClient: Sendable {
     let configuration: Configuration
     private let session: URLSession
@@ -20,7 +24,7 @@ public final class FeaturamaSdkClient: Sendable {
         self.encoder = JSONEncoder()
 
         self.decoder = JSONDecoder()
-        self.decoder.dateDecodingStrategy = .iso8601
+        self.decoder.dateDecodingStrategy = .custom { try FeaturamaDateDecoding.decode($0) }
     }
 
     // MARK: - Config
@@ -49,6 +53,9 @@ public final class FeaturamaSdkClient: Sendable {
         }
         components?.queryItems = queryItems
 
+        // URLQueryItem leaves '+' literal; form-style query parsers read it as a space.
+        let encodedQuery = components?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        components?.percentEncodedQuery = encodedQuery
         guard let url = components?.url else {
             throw FeaturamaSdkError.invalidURL
         }
@@ -63,7 +70,7 @@ public final class FeaturamaSdkClient: Sendable {
         var request = buildRequest(url: url, method: "POST")
 
         var input = createRequest
-        var deviceInfo = DeviceInfoProvider.collect()
+        var deviceInfo = await MainActor.run { createRequest.deviceInfo ?? DeviceInfoProvider.collect() }
         if let appVersion = configuration.appVersion {
             deviceInfo.appVersion = appVersion
         }
@@ -73,12 +80,13 @@ public final class FeaturamaSdkClient: Sendable {
         input.deviceInfo = deviceInfo
 
         request.httpBody = try encoder.encode(input)
-        return try await execute(request)
+        let created: FeatureRequest = try await execute(request)
+        return created.withVotingState(true)
     }
 
     /// Updates an existing feature request
     public func updateRequest(id: String, updateRequest: UpdateFeatureRequest) async throws -> FeatureRequest {
-        let url = configuration.baseURL.appendingPathComponent("/api/public/requests/\(id)")
+        let url = try resourceURL("requests", id)
         var request = buildRequest(url: url, method: "PUT")
         request.httpBody = try encoder.encode(updateRequest)
         return try await execute(request)
@@ -88,26 +96,31 @@ public final class FeaturamaSdkClient: Sendable {
 
     /// Adds a vote to a feature request
     public func vote(requestId: String, voterIdentifier: String) async throws -> FeatureRequest {
-        let url = configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/vote")
+        let url = try resourceURL("requests", requestId, "vote")
         var request = buildRequest(url: url, method: "POST")
         let voteRequest = VoteRequest(voterIdentifier: voterIdentifier)
         request.httpBody = try encoder.encode(voteRequest)
-        return try await execute(request)
+        let updated: FeatureRequest = try await execute(request)
+        return updated.withVotingState(true)
     }
 
     /// Removes a vote from a feature request
     public func removeVote(requestId: String, voterIdentifier: String) async throws -> FeatureRequest {
-        var components = URLComponents(url: configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/vote"), resolvingAgainstBaseURL: true)
+        var components = URLComponents(url: try resourceURL("requests", requestId, "vote"), resolvingAgainstBaseURL: true)
         components?.queryItems = [
             URLQueryItem(name: "voterIdentifier", value: voterIdentifier)
         ]
 
+        // URLQueryItem leaves '+' literal; form-style query parsers read it as a space.
+        let encodedQuery = components?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        components?.percentEncodedQuery = encodedQuery
         guard let url = components?.url else {
             throw FeaturamaSdkError.invalidURL
         }
 
         let request = buildRequest(url: url, method: "DELETE")
-        return try await execute(request)
+        let updated: FeatureRequest = try await execute(request)
+        return updated.withVotingState(false)
     }
 
     /// Toggles a vote on a feature request.
@@ -128,14 +141,14 @@ public final class FeaturamaSdkClient: Sendable {
 
     /// Fetches comments for a feature request
     public func getComments(requestId: String) async throws -> [Comment] {
-        let url = configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/comments")
+        let url = try resourceURL("requests", requestId, "comments")
         let request = buildRequest(url: url, method: "GET")
         return try await execute(request)
     }
 
     /// Adds a comment to a feature request
     public func addComment(requestId: String, input: CreateCommentRequest) async throws -> Comment {
-        let url = configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/comments")
+        let url = try resourceURL("requests", requestId, "comments")
         var request = buildRequest(url: url, method: "POST")
         request.httpBody = try encoder.encode(input)
         return try await execute(request)
@@ -143,7 +156,7 @@ public final class FeaturamaSdkClient: Sendable {
 
     /// Votes on a comment
     public func voteComment(requestId: String, commentId: String, voterIdentifier: String) async throws -> Comment {
-        let url = configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/comments/\(commentId)/vote")
+        let url = try resourceURL("requests", requestId, "comments", commentId, "vote")
         var request = buildRequest(url: url, method: "POST")
         let body = VoteRequest(voterIdentifier: voterIdentifier)
         request.httpBody = try encoder.encode(body)
@@ -153,12 +166,15 @@ public final class FeaturamaSdkClient: Sendable {
     /// Removes a vote from a comment
     public func removeCommentVote(requestId: String, commentId: String, voterIdentifier: String) async throws -> Comment {
         var components = URLComponents(
-            url: configuration.baseURL.appendingPathComponent("/api/public/requests/\(requestId)/comments/\(commentId)/vote"),
+            url: try resourceURL("requests", requestId, "comments", commentId, "vote"),
             resolvingAgainstBaseURL: true
         )
         components?.queryItems = [
             URLQueryItem(name: "voterIdentifier", value: voterIdentifier)
         ]
+        // URLQueryItem leaves '+' literal; form-style query parsers read it as a space.
+        let encodedQuery = components?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        components?.percentEncodedQuery = encodedQuery
         guard let url = components?.url else {
             throw FeaturamaSdkError.invalidURL
         }
@@ -179,6 +195,23 @@ public final class FeaturamaSdkClient: Sendable {
     }
 
     // MARK: - Private Helpers
+
+    private func resourceURL(_ components: String...) throws -> URL {
+        // appendingPathComponent does not escape embedded slashes. Reject them,
+        // percent-encoded delimiters and dot segments rather than changing an ID
+        // or relying on server/proxy decoding to keep it within one path segment.
+        let allowed = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")
+        var url = configuration.baseURL.appendingPathComponent("/api/public")
+        for component in components {
+            guard !component.isEmpty,
+                  component != ".", component != "..",
+                  component.rangeOfCharacter(from: allowed.inverted) == nil else {
+                throw FeaturamaSdkError.invalidURL
+            }
+            url.appendPathComponent(component)
+        }
+        return url
+    }
 
     private func buildRequest(url: URL, method: String) -> URLRequest {
         var request = URLRequest(url: url)

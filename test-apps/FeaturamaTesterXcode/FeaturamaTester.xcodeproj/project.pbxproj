@@ -94,7 +94,7 @@
 			);
 			mainGroup = AA000030 /* Root */;
 			packageReferences = (
-				AA000090 /* XCLocalSwiftPackageReference "../../../sdks/swift/FeaturamaSdk" */,
+				AA000090 /* XCLocalSwiftPackageReference "../.." */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AA000031 /* Products */;
@@ -332,9 +332,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		AA000090 /* XCLocalSwiftPackageReference "../../../sdks/swift/FeaturamaSdk" */ = {
+		AA000090 /* XCLocalSwiftPackageReference "../.." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../sdks/swift/FeaturamaSdk";
+			relativePath = "../..";
 		};
 /* End XCLocalSwiftPackageReference section */
 

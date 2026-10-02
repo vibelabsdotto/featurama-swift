@@ -10,6 +10,8 @@ struct FeaturamaRequestListView: View {
     let onToggleVote: (String) -> Void
     let onRequestPress: (FeatureRequest) -> Void
     let onRefresh: () async -> Void
+    let hasNextPage: Bool
+    let onLoadMore: () async -> Void
 
     var body: some View {
         if isLoading && items == nil {
@@ -17,7 +19,7 @@ struct FeaturamaRequestListView: View {
             ProgressView()
                 .tint(theme.accent)
             Spacer()
-        } else if error != nil, items == nil {
+        } else if error != nil, items?.isEmpty != false {
             Spacer()
             VStack(spacing: 16) {
                 Text(strings.error)
@@ -49,6 +51,10 @@ struct FeaturamaRequestListView: View {
         } else if let items = items, !items.isEmpty {
             ScrollView {
                 LazyVStack(spacing: 12) {
+                    if let error {
+                        Text(error).foregroundColor(.red)
+                        Button(strings.retry) { Task { await onRefresh() } }
+                    }
                     ForEach(items) { request in
                         RequestCardView(
                             theme: theme,
@@ -58,6 +64,10 @@ struct FeaturamaRequestListView: View {
                             onToggleVote: { onToggleVote(request.id) },
                             onPress: { onRequestPress(request) }
                         )
+                    }
+                    if hasNextPage {
+                        Button(strings.loadMore) { Task { await onLoadMore() } }
+                            .disabled(isLoading)
                     }
                 }
                 .padding(.horizontal, 16)

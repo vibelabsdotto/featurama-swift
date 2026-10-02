@@ -4,9 +4,11 @@ struct CreateRequestFormView: View {
     let theme: FeaturamaTheme
     let strings: FeaturamaStrings
     let emailCollection: ProjectConfig.EmailCollection
-    let onSubmit: (String, String, String?) async -> Void
+    let onSubmit: (String, String, String?) async throws -> Void
+    var request: FeatureRequest? = nil
     let onCancel: () -> Void
 
+    @State private var submissionError: String?
     @State private var title = ""
     @State private var description = ""
     @State private var email = ""
@@ -15,7 +17,7 @@ struct CreateRequestFormView: View {
     @State private var showEmailSkipAlert = false
 
     private var trimmedTitle: String {
-        title.trimmingCharacters(in: .whitespaces)
+        title.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private var trimmedEmail: String {
@@ -37,7 +39,7 @@ struct CreateRequestFormView: View {
     }
 
     private var isValid: Bool {
-        if trimmedTitle.isEmpty { return false }
+        if trimmedTitle.isEmpty || description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return false }
         if emailError != nil { return false }
         if emailCollection == .required && trimmedEmail.isEmpty { return false }
         return true
@@ -54,8 +56,10 @@ struct CreateRequestFormView: View {
                 }
                 .frame(width: 44, height: 44)
                 .buttonStyle(.plain)
+                .disabled(isSubmitting)
+                .accessibilityLabel(strings.cancel)
 
-                Text(strings.newRequest)
+                Text(request == nil ? strings.newRequest : strings.editRequest)
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundColor(theme.text)
                     .lineLimit(1)
@@ -94,6 +98,9 @@ struct CreateRequestFormView: View {
             // Form body
             ScrollView {
                 VStack(spacing: 12) {
+                    if let submissionError {
+                        Text(submissionError).foregroundColor(.red)
+                    }
                     TextField(strings.titlePlaceholder, text: $title)
                         .textFieldStyle(.plain)
                         .padding(14)
@@ -140,6 +147,12 @@ struct CreateRequestFormView: View {
                 .padding(16)
             }
         }
+        .onAppear {
+            if let request {
+                title = request.title
+                description = request.description
+            }
+        }
         .alert(strings.emailSkipTitle, isPresented: $showEmailSkipAlert) {
             Button(strings.cancel, role: .cancel) { }
             Button(strings.emailSkipConfirm) {
@@ -153,16 +166,17 @@ struct CreateRequestFormView: View {
     private func performSubmit() {
         isSubmitting = true
         Task {
-            await onSubmit(
-                trimmedTitle,
-                description.trimmingCharacters(in: .whitespaces),
-                trimmedEmail.isEmpty ? nil : trimmedEmail
-            )
-            title = ""
-            description = ""
-            email = ""
-            emailTouched = false
-            isSubmitting = false
+            defer { isSubmitting = false }
+            submissionError = nil
+            do {
+                try await onSubmit(
+                    trimmedTitle,
+                    description.trimmingCharacters(in: .whitespacesAndNewlines),
+                    trimmedEmail.isEmpty ? nil : trimmedEmail
+                )
+            } catch {
+                submissionError = error.localizedDescription
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ let package = Package(
     name: "FeaturamaTester",
     platforms: [.iOS(.v17), .macOS(.v14)],
     dependencies: [
-        .package(path: "../../../sdks/swift/FeaturamaSdk"),
+        .package(name: "FeaturamaSdk", path: "../.."),
     ],
     targets: [
         .executableTarget(

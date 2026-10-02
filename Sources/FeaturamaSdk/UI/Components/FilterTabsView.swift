@@ -8,6 +8,7 @@ struct FilterTabsView: View {
     private var filters: [(key: String, label: String)] {
         [
             ("new", strings.filterNew),
+            ("planned", strings.filterPlanned),
             ("in_progress", strings.filterInProgress),
             ("done", strings.filterDone),
         ]
