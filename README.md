@@ -124,6 +124,22 @@ let strings = FeaturamaStrings(
 FeaturamaView(accentColor: .blue, strings: strings)
 ```
 
+### Review prompt after a shipped request
+
+Set the App Store link in the project dashboard. `getConfig()` returns it as `reviewLinks.appStoreUrl`. Older servers omit the field.
+
+When a request this device submitted or voted for has moved to Done since the last board visit, the board shows a dismissible card at the top of the list: "Your idea is live", the request title and a "Rate the app" button. The button opens the App Store review page on iOS, macOS and visionOS. Without an App Store link, and on tvOS and watchOS, there is no card. Each request shows the card once, and a device sees at most one card every 90 days. The first board visit only records which requests are already done. Declined requests never trigger it.
+
+The SDK never calls `requestReview`. To use it, pass `onRequestShipped`. It fires under the same rules, also when no store link is set:
+
+```swift
+@Environment(\.requestReview) private var requestReview
+
+FeaturamaView(accentColor: .blue, onRequestShipped: { _ in requestReview() })
+```
+
+The card strings are `shippedTitleOwn`, `shippedTitleVoted`, `shippedBody`, `rateApp`, `rateOpenError` and `dismiss` in `FeaturamaStrings`, for example `FeaturamaStrings(shippedTitleOwn: "Deine Idee ist umgesetzt", rateApp: "App bewerten")`.
+
 ## API Client
 
 Use the API client directly if you want to build your own UI:

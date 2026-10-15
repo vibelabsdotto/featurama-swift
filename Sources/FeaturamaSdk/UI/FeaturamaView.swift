@@ -20,14 +20,18 @@ public struct FeaturamaView: View {
     private let onClose: (() -> Void)?
     private let strings: FeaturamaStrings
     private let submitterIdentifier: String?
+    private let onRequestShipped: ((FeatureRequest) -> Void)?
 
+    /// - Parameter onRequestShipped: Called once when a request this device submitted or voted for
+    ///   has moved to Done since the last board visit. Use it to call `requestReview` yourself.
     public init(
         accentColor: Color = .blue,
         colorScheme: ColorScheme? = nil,
         theme: FeaturamaThemeOverrides? = nil,
         onClose: (() -> Void)? = nil,
         strings: FeaturamaStrings = FeaturamaStrings(),
-        submitterIdentifier: String? = nil
+        submitterIdentifier: String? = nil,
+        onRequestShipped: ((FeatureRequest) -> Void)? = nil
     ) {
         self.accentColor = accentColor
         self.preferredColorScheme = colorScheme
@@ -35,6 +39,7 @@ public struct FeaturamaView: View {
         self.onClose = onClose
         self.strings = strings
         self.submitterIdentifier = submitterIdentifier
+        self.onRequestShipped = onRequestShipped
     }
 
     @Environment(\.colorScheme) private var systemColorScheme
@@ -54,6 +59,7 @@ public struct FeaturamaView: View {
 
     // Config
     @State private var config: ProjectConfig? = nil
+    @State private var shipped: ShippedReview.Shipped? = nil
 
     // Detail view state
     @State private var selectedRequest: FeatureRequest? = nil
@@ -82,6 +88,24 @@ public struct FeaturamaView: View {
 
     private var emailCollection: ProjectConfig.EmailCollection {
         config?.emailCollection ?? .none
+    }
+
+    private var storeURL: URL? {
+        ShippedReview.storeURL(config?.reviewLinks)
+    }
+
+    @ViewBuilder
+    private var shippedCard: some View {
+        if let shipped, let storeURL {
+            ShippedReviewCardView(
+                theme: theme,
+                strings: strings,
+                shipped: shipped,
+                storeURL: storeURL,
+                onPress: { handleRequestPress(shipped.request) },
+                onDismiss: { self.shipped = nil }
+            )
+        }
     }
 
     public var body: some View {
@@ -183,7 +207,8 @@ public struct FeaturamaView: View {
                         },
                         onRefresh: { await loadData() },
                         hasNextPage: hasNextPage,
-                        onLoadMore: { await loadData(append: true) }
+                        onLoadMore: { await loadData(append: true) },
+                        header: shippedCard
                     )
                 }
                 .overlay(alignment: .bottom) {
@@ -213,6 +238,12 @@ public struct FeaturamaView: View {
         .task {
             do { config = try await FeaturamaSdk.getConfig() }
             catch { actionError = error.localizedDescription }
+            // Once per board visit. The card is optional, so failures stay silent.
+            let canNotify = storeURL != nil || onRequestShipped != nil
+            if let found = try? await ShippedReview.find(voterId: voterId, canNotify: canNotify) {
+                shipped = found
+                onRequestShipped?(found.request)
+            }
         }
         .task(id: activeFilter) {
             if selectedRequest == nil {

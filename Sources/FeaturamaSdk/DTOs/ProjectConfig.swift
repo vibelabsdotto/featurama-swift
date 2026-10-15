@@ -8,6 +8,19 @@ public struct ProjectConfig: Codable, Sendable {
     /// Email collection setting
     public let emailCollection: EmailCollection
 
+    /// Optional store links. Older servers omit this field.
+    public let reviewLinks: ReviewLinks?
+
+    public struct ReviewLinks: Codable, Sendable {
+        public let appStoreUrl: String?
+        public let playStoreUrl: String?
+
+        public init(appStoreUrl: String? = nil, playStoreUrl: String? = nil) {
+            self.appStoreUrl = appStoreUrl
+            self.playStoreUrl = playStoreUrl
+        }
+    }
+
     /// Branding configuration
     public struct Branding: Codable, Sendable {
         /// Whether to show "Powered by Featurama" branding

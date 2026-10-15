@@ -31,6 +31,13 @@ public struct FeaturamaStrings {
     public var newRequest: String
     public var editRequest: String
     public var loadMore: String
+    public var shippedTitleOwn: String
+    public var shippedTitleVoted: String
+    /// `{title}` is replaced with the request title.
+    public var shippedBody: String
+    public var rateApp: String
+    public var rateOpenError: String
+    public var dismiss: String
 
     public init(
         title: String = "Feature Requests",
@@ -64,7 +71,13 @@ public struct FeaturamaStrings {
         pendingReview: String = "Pending Review",
         newRequest: String = "New Request",
         editRequest: String = "Edit Request",
-        loadMore: String = "Load more"
+        loadMore: String = "Load more",
+        shippedTitleOwn: String = "Your idea is live",
+        shippedTitleVoted: String = "An idea you voted for is live",
+        shippedBody: String = "\"{title}\" is now in the app.",
+        rateApp: String = "Rate the app",
+        rateOpenError: String = "Couldn't open the store.",
+        dismiss: String = "Close"
     ) {
         self.title = title
         self.filterNew = filterNew
@@ -98,5 +111,11 @@ public struct FeaturamaStrings {
         self.newRequest = newRequest
         self.editRequest = editRequest
         self.loadMore = loadMore
+        self.shippedTitleOwn = shippedTitleOwn
+        self.shippedTitleVoted = shippedTitleVoted
+        self.shippedBody = shippedBody
+        self.rateApp = rateApp
+        self.rateOpenError = rateOpenError
+        self.dismiss = dismiss
     }
 }

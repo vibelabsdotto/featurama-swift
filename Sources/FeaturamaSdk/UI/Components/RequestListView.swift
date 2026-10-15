@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FeaturamaRequestListView: View {
+struct FeaturamaRequestListView<Header: View>: View {
     let theme: FeaturamaTheme
     let strings: FeaturamaStrings
     let items: [FeatureRequest]?
@@ -12,6 +12,8 @@ struct FeaturamaRequestListView: View {
     let onRefresh: () async -> Void
     let hasNextPage: Bool
     let onLoadMore: () async -> Void
+    /// First element of the scrolling list. Not shown in loading, error or empty states.
+    let header: Header
 
     var body: some View {
         if isLoading && items == nil {
@@ -51,6 +53,7 @@ struct FeaturamaRequestListView: View {
         } else if let items = items, !items.isEmpty {
             ScrollView {
                 LazyVStack(spacing: 12) {
+                    header
                     if let error {
                         Text(error).foregroundColor(.red)
                         Button(strings.retry) { Task { await onRefresh() } }
